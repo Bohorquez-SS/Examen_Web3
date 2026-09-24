@@ -32,6 +32,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
+
 });
 
 // Solo se validan las Data Annotations que escribimos explícitamente
@@ -40,22 +41,25 @@ builder.Services.AddControllersWithViews(options =>
 
 builder.Services.AddScoped<ReportePdfService>();
 
+
 var app = builder.Build();
 
 // Cultura fija para que los decimales usen punto (evita errores con precios)
 var cultura = new CultureInfo("en-US");
 app.UseRequestLocalization(new RequestLocalizationOptions
 {
+
     DefaultRequestCulture = new RequestCulture(cultura),
     SupportedCultures = new[] { cultura },
     SupportedUICultures = new[] { cultura }
 });
 
-// Crea la BD, los roles, el usuario administrador y servicios de ejemplo
+// Crea la Base de datos, los roles, el usuario administrador y servicios de ejemplo
 using (var scope = app.Services.CreateScope())
 {
     await DbSeeder.SeedAsync(scope.ServiceProvider);
 }
+
 
 if (!app.Environment.IsDevelopment())
 {
@@ -64,11 +68,15 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseAuthentication();
+
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",
