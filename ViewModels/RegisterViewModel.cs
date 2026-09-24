@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace VeterinariaApp.ViewModels
 {
     public class RegisterViewModel
+        
     {
         [Required(ErrorMessage = "El nombre completo es obligatorio.")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "El nombre debe tener entre 3 y 100 caracteres.")]
