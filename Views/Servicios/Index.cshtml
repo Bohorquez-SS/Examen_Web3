@@ -1,0 +1,40 @@
+@model IEnumerable<ServicioVeterinario>
+@{ ViewData["Title"] = "Gestionar servicios"; }
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+    <h2 class="mb-0">Servicios veterinarios</h2>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Nuevo servicio</a>
+</div>
+
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th class="text-end">Precio</th>
+                <th class="text-center">Citas</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="5" class="text-center text-muted py-4">No hay servicios. Crea el primero con “Nuevo servicio”.</td></tr>
+            }
+            @foreach (var s in Model)
+            {
+                <tr>
+                    <td class="fw-semibold">@s.Nombre</td>
+                    <td>@s.Descripcion</td>
+                    <td class="text-end">$ @s.Precio.ToString("N2")</td>
+                    <td class="text-center">@s.Citas.Count</td>
+                    <td class="text-center text-nowrap">
+                        <a asp-action="Edit" asp-route-id="@s.Id" class="btn btn-sm btn-outline-primary">Editar</a>
+                        <a asp-action="Delete" asp-route-id="@s.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

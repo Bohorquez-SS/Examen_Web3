@@ -1,0 +1,47 @@
+@model IEnumerable<Cita>
+@{ ViewData["Title"] = "Mis citas"; }
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+    <h2 class="mb-0">Mis citas</h2>
+    <a asp-action="Create" class="btn btn-primary"><i class="bi bi-calendar-plus"></i> Solicitar cita</a>
+</div>
+
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>Fecha</th>
+                <th>Mascota</th>
+                <th>Servicio</th>
+                <th class="text-end">Precio</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="6" class="text-center text-muted py-4">No tienes citas. Usa “Solicitar cita” para agendar una.</td></tr>
+            }
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.FechaCita.ToString("dd/MM/yyyy")</td>
+                    <td>@c.Mascota?.Nombre</td>
+                    <td>@c.ServicioVeterinario?.Nombre</td>
+                    <td class="text-end">$ @(c.ServicioVeterinario?.Precio.ToString("N2"))</td>
+                    <td><partial name="_EstadoBadge" model="c.Estado" /></td>
+                    <td class="text-end">
+                        @if (c.Estado == EstadoCita.Pendiente)
+                        {
+                            <form asp-action="Cancelar" asp-route-id="@c.Id" method="post" class="d-inline"
+                                  onsubmit="return confirm('¿Cancelar esta cita?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Cancelar cita</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

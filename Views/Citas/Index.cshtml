@@ -1,0 +1,58 @@
+@model IEnumerable<Cita>
+@{
+    ViewData["Title"] = "Citas registradas";
+    var filtro = ViewBag.EstadoFiltro as EstadoCita?;
+    var estados = Enum.GetValues<EstadoCita>();
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+    <h2 class="mb-0">Citas registradas</h2>
+    <form method="get" asp-action="Index" class="d-flex gap-2">
+        <select name="estado" class="form-select form-select-sm" aria-label="Filtrar por estado"
+                asp-items="@estados.Select(e => new SelectListItem(e.ToString(), e.ToString(), filtro == e))">
+            <option value="">Todos los estados</option>
+        </select>
+        <button type="submit" class="btn btn-sm btn-primary">Filtrar</button>
+    </form>
+</div>
+
+<div class="table-responsive bg-white rounded shadow-sm">
+    <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+            <tr>
+                <th>#</th>
+                <th>Fecha</th>
+                <th>Mascota</th>
+                <th>Dueño</th>
+                <th>Servicio</th>
+                <th>Estado</th>
+                <th>Cambiar estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (!Model.Any())
+            {
+                <tr><td colspan="7" class="text-center text-muted py-4">No hay citas para mostrar.</td></tr>
+            }
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td>@c.Id</td>
+                    <td>@c.FechaCita.ToString("dd/MM/yyyy")</td>
+                    <td>@c.Mascota?.Nombre <small class="text-muted">(@c.Mascota?.Especie)</small></td>
+                    <td>@c.Mascota?.Usuario?.NombreCompleto</td>
+                    <td>@c.ServicioVeterinario?.Nombre</td>
+                    <td><partial name="_EstadoBadge" model="c.Estado" /></td>
+                    <td>
+                        <form asp-action="CambiarEstado" asp-route-id="@c.Id" method="post" class="d-flex gap-1">
+                            <select name="estado" class="form-select form-select-sm" aria-label="Nuevo estado"
+                                    asp-items="@estados.Select(e => new SelectListItem(e.ToString(), e.ToString(), c.Estado == e))">
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-outline-primary">Guardar</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

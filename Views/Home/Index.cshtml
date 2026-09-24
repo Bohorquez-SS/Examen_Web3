@@ -1,0 +1,27 @@
+@{ ViewData["Title"] = "Inicio"; }
+
+<div class="bienvenida p-4 p-md-5 mb-4">
+    <h1 class="fw-bold mb-2">Cuidamos a tu mascota</h1>
+    <p class="fs-5 mb-4">Consulta nuestros servicios, registra a tus mascotas y agenda sus citas en línea.</p>
+
+    @if (User.Identity?.IsAuthenticated != true)
+    {
+        <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg me-2">Crear cuenta</a>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-outline-secondary btn-lg">Iniciar sesión</a>
+    }
+    else if (User.IsInRole(RolesApp.Administrador))
+    {
+        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary btn-lg me-2 mb-2">Ver dashboard</a>
+        <a asp-controller="Servicios" asp-action="Index" class="btn btn-outline-secondary btn-lg me-2 mb-2">Gestionar servicios</a>
+        <a asp-controller="Citas" asp-action="Index" class="btn btn-outline-secondary btn-lg me-2 mb-2">Ver citas</a>
+        <a asp-controller="Reportes" asp-action="Index" class="btn btn-outline-secondary btn-lg mb-2">Reportes PDF</a>
+    }
+    else
+    {
+        <a asp-controller="Citas" asp-action="Create" class="btn btn-primary btn-lg me-2 mb-2">Solicitar cita</a>
+        <a asp-controller="Mascotas" asp-action="Index" class="btn btn-outline-secondary btn-lg me-2 mb-2">Mis mascotas</a>
+        <a asp-controller="Citas" asp-action="MisCitas" class="btn btn-outline-secondary btn-lg mb-2">Mis citas</a>
+    }
+</div>
+
+<a asp-controller="Servicios" asp-action="Catalogo">Ver todos los servicios disponibles</a>

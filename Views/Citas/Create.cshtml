@@ -1,0 +1,36 @@
+@model Cita
+@{ ViewData["Title"] = "Solicitar cita"; }
+
+<div class="card shadow-sm form-card">
+    <div class="card-body p-4">
+        <h2 class="mb-3">Solicitar cita</h2>
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="MascotaId" class="form-label"></label>
+                <select asp-for="MascotaId" asp-items="(SelectList)ViewBag.Mascotas" class="form-select">
+                    <option value="0">-- Seleccione su mascota --</option>
+                </select>
+                <span asp-validation-for="MascotaId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="ServicioVeterinarioId" class="form-label"></label>
+                <select asp-for="ServicioVeterinarioId" asp-items="(SelectList)ViewBag.Servicios" class="form-select">
+                    <option value="0">-- Seleccione un servicio --</option>
+                </select>
+                <span asp-validation-for="ServicioVeterinarioId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="FechaCita" class="form-label"></label>
+                <input asp-for="FechaCita" class="form-control" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="FechaCita" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrar cita</button>
+            <a asp-action="MisCitas" class="btn btn-link">Ver mis citas</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,35 @@
+:root {
+    --clinica: #1f6f5c;
+    --clinica-oscuro: #164f42;
+    --clinica-suave: #e6f2ee;
+    --fondo: #f4f7f6;
+}
+
+body {
+    font-family: "Nunito", "Segoe UI", Arial, sans-serif;
+    background: var(--fondo);
+}
+
+.nav-clinica { background: var(--clinica); }
+
+.btn-primary { background: var(--clinica); border-color: var(--clinica); }
+.btn-primary:hover, .btn-primary:focus { background: var(--clinica-oscuro); border-color: var(--clinica-oscuro); }
+
+.bienvenida {
+    background: var(--clinica-suave);
+    border-left: 6px solid var(--clinica);
+    border-radius: .75rem;
+}
+
+.tarjeta-stat { border: 0; border-radius: .75rem; }
+.tarjeta-stat .numero { font-size: 2.2rem; font-weight: 800; line-height: 1; color: var(--clinica-oscuro); }
+.tarjeta-stat i { font-size: 1.8rem; color: var(--clinica); }
+
+.form-card { max-width: 560px; }
+
+.table thead th { white-space: nowrap; }
+
+.field-validation-error, .validation-summary-errors { color: #b42318; font-size: .9rem; }
+.input-validation-error { border-color: #b42318 !important; }
+
+a:focus-visible, .btn:focus-visible { outline: 3px solid #f0b429; outline-offset: 2px; }

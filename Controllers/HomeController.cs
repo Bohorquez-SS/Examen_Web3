@@ -1,0 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
+
+namespace VeterinariaApp.Controllers
+{
+    public class HomeController : Controller
+    {
+        public IActionResult Index() => View();
+
+        public IActionResult Error() => View();
+    }
+}

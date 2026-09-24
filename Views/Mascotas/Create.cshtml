@@ -1,0 +1,41 @@
+@model Mascota
+@{
+    ViewData["Title"] = "Registrar mascota";
+    var especies = new[] { "Perro", "Gato", "Ave", "Conejo", "Hámster", "Reptil", "Otro" };
+}
+
+<div class="card shadow-sm form-card">
+    <div class="card-body p-4">
+        <h2 class="mb-3">Registrar mascota</h2>
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Especie" class="form-label"></label>
+                <select asp-for="Especie" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    @foreach (var e in especies)
+                    {
+                        <option value="@e">@e</option>
+                    }
+                </select>
+                <span asp-validation-for="Especie" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Raza" class="form-label"></label>
+                <input asp-for="Raza" class="form-control" placeholder="Ej. Labrador, Mestizo" />
+                <span asp-validation-for="Raza" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Registrar mascota</button>
+            <a asp-action="Index" class="btn btn-link">Volver</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,41 @@
+@{ ViewData["Title"] = "Reportes PDF"; }
+
+<h2 class="mb-4">Reportes PDF</h2>
+
+<div class="row g-3">
+    <div class="col-12 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">Listado general de citas</h5>
+                <p class="flex-grow-1">Todas las citas con mascota, dueño, servicio, fecha y estado.</p>
+                <a asp-action="CitasGeneral" target="_blank" class="btn btn-primary"><i class="bi bi-file-earmark-pdf"></i> Generar PDF</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">Citas por cliente</h5>
+                <p>Citas de las mascotas de un cliente.</p>
+                <form asp-action="CitasPorUsuario" method="get" target="_blank" class="mt-auto">
+                    <select name="usuarioId" class="form-select mb-2" required
+                            asp-items="(SelectList)ViewBag.Clientes" aria-label="Cliente">
+                        <option value="">-- Seleccione un cliente --</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary w-100"><i class="bi bi-file-earmark-pdf"></i> Generar PDF</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body d-flex flex-column">
+                <h5 class="fw-bold">Servicios más solicitados</h5>
+                <p class="flex-grow-1">Servicios ordenados por cantidad de citas registradas.</p>
+                <a asp-action="ServiciosMasSolicitados" target="_blank" class="btn btn-primary"><i class="bi bi-file-earmark-pdf"></i> Generar PDF</a>
+            </div>
+        </div>
+    </div>
+</div>

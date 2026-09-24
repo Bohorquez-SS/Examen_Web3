@@ -1,0 +1,11 @@
+@model EstadoCita
+@{
+    var clase = Model switch
+    {
+        EstadoCita.Pendiente => "bg-warning text-dark",
+        EstadoCita.Atendida => "bg-success",
+        EstadoCita.Cancelada => "bg-secondary",
+        _ => "bg-light text-dark"
+    };
+}
+<span class="badge @clase">@Model</span>
